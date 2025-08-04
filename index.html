@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Zona de Juegos</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/chat.css">
+</head>
+<body>
+    <header>
+        <img src="img/Pixqui/hablandofeliz.png" alt="pixquifoto" width="100px" class="pixquifoto" style="width:50px;height:auto;">
+        <h1>PIXQUILANDIA</h1>
+        <p>Bienvenido a tu sala de juegos</p>
+    </header>
+    <nav>
+        <ul>
+            <li><button class="button button1">Inicio</button></li>
+            <a href="paginas/galeria.html"><button class="button button3">Galería</button></li></a>
+        </ul>
+    </nav>
+    <main>
+        <section class="juego">
+            <img src="img/tetris.png" alt="Tetris">
+            <h2>Tetris</h2>
+            <p>El clásico de los bloques. Juega ahora.</p>
+            <a href="paginas/tetris.html" class="btn-jugar">Jugar</a>
+        </section>
+
+        <section class="juego">
+            <img src="img/dibuja.png" alt="Dibujo">
+            <h2>Dibujo libre</h2>
+            <p>Tu lienzo para expresarte y reventar esa imaginación.</p>
+            <a href="paginas/dibujo.html" class="btn-jugar">Jugar</a>
+        </section>
+
+        <section class="juego">
+            <img src="img/memoramaa.png" alt="Memoria">
+            <h2>Memoria</h2>
+            <p>Encuentra los pares de obras de arte.</p>
+            <a href="paginas/memoria.html" class="btn-jugar">Jugar</a>
+        </section>
+    </main>
+    <main>
+         <section class="juego">
+            <img src="img/gato.png" alt="Gato">
+            <h2>Gato</h2>
+            <p>Desafía a tus amigos en este juego.</p>
+            <a href="paginas/gato.html" class="btn-jugar">Jugar</a>
+        </section>
+
+        <section class="juego">
+            <img src="img/trivia.png" alt="Trivia">
+            <h2>Trivia</h2>
+            <p>Veamos qué tanto sabes de arte y cultura.</p>
+            <a href="paginas/trivia.html" class="btn-jugar">Jugar</a>
+        </section>
+
+        <section class="juego">
+            <img src="img/colorea.png" alt="Colorea">
+            <h2>Colorea</h2>
+            <p>Colorea a tu antojo.</p>
+            <a href="paginas/colorea.html" class="btn-jugar">Jugar</a>
+        </section>
+    </main>
+    <div id="chat-button">
+        <img id="mascota-btn-img" src="img/Pixqui/cara.png" alt="Mascota" height="40px" width="40px"/>
+       
+    </div>
+
+    <div id="chat-box" class="hidden">
+        <div id="chat-header">Hola, soy Pixqui, la mascota de Casa de Cultura</div>
+        <div id="chat-messages">
+            <div class="bot-message">
+                <img src="img/Pixqui/saludo.png" class="pixqui-avatar"  height="5px"    width="5px"/>
+                <div class="mensaje-burbuja">¿En qué te puedo ayudar hoy?</div>
+            </div>
+        </div>
+        <input type="text" id="user-input" placeholder="Escribe tu pregunta aquí..." />
+    </div>
+
+    <script src="js/script.js"></script>
+
+    <footer>
+        <p>&copy; 2025 LuXyTrsh · YOH</p>
+    </footer>
+</body>
+</html>
