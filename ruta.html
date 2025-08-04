@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ruta de las Bellas Artes</title>
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', cursive;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 20px;
+      color: #000000;
+    }
+
+    #map {
+      width: 90%;
+      height: 750px;
+      border-radius: 20px;
+    }
+
+    .marker {
+      background-color: #5a8dee;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      box-shadow: 0 0 3px #333;
+      cursor: pointer;
+    }
+
+    .popup-content {
+      font-size: 14px;
+      color: #4e2f6e;
+    }
+
+    .popup-content a {
+      color: #3b5998;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+    <h1>Ruta de las Bellas Artes</h1>
+  <div id="map"></div>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoieW9oMTIiLCJhIjoiY21kaXgxYjdwMGd5NTJqb2E0enppcmRtbiJ9.3VMih-o0SnSNsSLVBOUfsA';
+
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [-98.735, 20.122], 
+      zoom: 14
+    });
+
+    const lugares = [
+      {
+        nombre: "Los Pichudos",
+        coords: [20.12425251929845, -98.7364278534234],
+        direccion: "📍 C. Manuel Fernando Soto 201, Centro, 42000 Pachuca de Soto, Hgo.", 
+        facebook: "https://m.facebook.com/Los-Pichudos-101518232450947/",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/316103883_189954620265451_3958347268769609938_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=3RpN3hNopUoQ7kNvwGXUU23&_nc_oc=Adk_ps-opQyT1N9qoJMXD4gikYSpfTJ5MWTXRKXgGJxHdfk7lRCX3ruNFktvqqlyv44&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=hGJIUmvjjcI-3sbq-SU6jQ&oh=00_AfVWgD0j35_UMGynhQSaurtkm9uq8dHoa7Zpn3kHiNqj2w&oe=6896BA3D"
+      },
+      {
+        nombre: "Sotero",
+        coords: [20.118098914373714, -98.73364527507337],
+        direccion: "📍 Dr. Manuel del Corral 101, Real de Minas, 42090 Pachuca de Soto, Hgo.",
+        facebook: "https://www.facebook.com/SoteroRestMx/",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/449310465_885026613667937_5780074699814524888_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=f9NnRkt8EfYQ7kNvwGTXd9i&_nc_oc=Adn13_n2kGRPS6a0twrraXPsBqn__l9FpwkAl9g5Nj0W-hHH176biHdeejPCn2PqwU4&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=X9aHS5Pn9KUN4askaMDK5w&oh=00_AfWsPGk4xFtJBDtjRiIs-WQG6qw5fEDusOeEyVLrmyHmCQ&oe=6896C49C"
+      },
+      {
+        nombre: "La Perfección",
+        coords: [20.12906348130459, -98.73215053274362],
+        direccion: "📍 Calle Vicente Guerrero 400, Centro, 42000 Pachuca de Soto, Hgo.",
+        facebook: "https://www.facebook.com/p/La-Perfección-Restaurante-61551231861268/",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/375028711_122094113342041062_1448888075864177107_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=3reB6UOsdWsQ7kNvwElAUqO&_nc_oc=AdmDiLlusC9sEmrgLNwrVFezbYqnmYntVGt1Q2nbKFhpRfXixR_bKLJKeRioSskmVN4&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=IzLFU8vYgggcGtPY7nGrEQ&oh=00_AfXgUqJvM0j40Pdw_yUJ1JUebyV2e1VKGQ8VClbZ3acuiA&oe=6896BF46"
+      },
+      {
+        nombre: "Farino Cofee Shop",
+        coords: [20.116644018558645, -98.74740623078331],
+        direccion: "📍 Av Constituyentes 116A, Constitución, 42080 Pachuca de Soto, Hgo.",
+        facebook: "https://www.facebook.com/people/Farino-Coffee-Shop/61572166425633/",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/487540998_122119289798738880_5920216373634880058_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=BXO7yEm9QeMQ7kNvwHOAsaZ&_nc_oc=Adk-fjZHS2nDTyFXZWd5wIwDt-DB4s5PMDnRpE7WQTJB4T9GOp0RjwWoT-HlLF0mA6Q&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=kr5OXRcUUtCgztycgfm8Ww&oh=00_AfVMO2kYLFfgzjIWTL--1pG9TNInel4ZKPqriF1vOreu1w&oe=6896BF1A"
+      },
+      {
+        nombre: "Cactus Café",
+        coords: [20.122762677004637, -98.7314609462381],
+        direccion: "📍 Cl. Miguel Hidalgo 803, Centro, 42000 Pachuca de Soto, Hgo.",
+        facebook: "https://www.facebook.com/cactuscoffeeterrazayjuegosdemesa",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/515439682_739856698802073_8412817928143357097_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=y3FVRbCiNpUQ7kNvwEgH4oG&_nc_oc=AdnAZQsaZ_ZUXmEJ9OSo_7Bg0fcJwVwjx5gZliYg_sJ_Cs-ndNRNETWTGlWOmWd6lkU&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=okeq1EDhqY7IP5iNNim3UA&oh=00_AfW3KU3pbxwldsw4OsF8XF7dmoA5L_S77cbhDtLcvzmgAA&oe=6896D830"
+      },
+      {
+        nombre: "Artiguo Café",
+        coords: [20.115131581315364, -98.75409630390868],
+        direccion: "📍 Ignacio Zaragoza 102, Santa Julia, Sta Julia, 42080 Pachuca de Soto, Hgo.",
+        facebook: "https://www.facebook.com/Artiguocafe/",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/457497741_1022092312947586_5920816287727455627_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=TaFL1YFC8l8Q7kNvwGWG62m&_nc_oc=Adk-RSRtPYTdJIQD6jvIMRX-AnHo4sPjRi2uVylow-YZhrdEhGds_cJPJK7AKVagCI4&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=5J-dlm_1ex-R1Sk-Ssb_fA&oh=00_AfVGDzHc1oS7THIJKmpoE9k1L2JJiQRqPSK51SrxmbYyEw&oe=6896C438"
+      },
+      {
+        nombre: "222 Pizzas y Ahumados",
+        coords: [20.123398555190764, -98.73549200390849],
+        direccion: "📍 Pl. Benito Juárez 102, Centro, 42000 Pachuca de Soto, Hgo.",
+        facebook: "https://www.facebook.com/222PIZZAYAHUMADOS/?locale=es_LA",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/467505866_1056093339648029_3366892902981559362_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=TRVEhqYLWuMQ7kNvwFGHjUj&_nc_oc=Admyz5-JwpgRAXCc2EApk10AtcIe_Js4H7t4nFkRiy82z0kIaaZon5oyD9ACaoGxPZY&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=5kbnv2WCrbIPuqEltA9fdg&oh=00_AfVS71AC3tXxUXu8Q4aT7bap6K9LfDKfE3mpHblqCVtNEw&oe=6896D755"
+      },
+      {
+        nombre: "Zero Kafé",
+        coords: [20.124159607446533, -98.73142293492988],
+        direccion: "📍 C. Miguel Ramos Arizpe 201B, Centro, 42000 Pachuca de Soto, Hgo.",
+        facebook: "https://www.facebook.com/people/Zero-Kafé/61576309505507/?_rdr",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/498236995_122100896612876983_3879602397364958604_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=uC5c2gGL9CkQ7kNvwEfjHsW&_nc_oc=AdloK5UH189HqdBn5El7XRCxcHpSP4SLodIPhqRBa0szB08N3Ckz11ZeX_w8ZbHDYlA&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=FOqHM32UjX2g1k8hxUUkkQ&oh=00_AfXyy4eopoJ6y2CB1qMHLH_3U3mX2piCginllX7gIx7byQ&oe=6896E981"
+      },
+      {
+        nombre: "GATO NEGRO CAFÉ CLVB",
+        coords: [20.12210298130988, -98.73207130390848],
+        direccion: "📍 Cl. Miguel Hidalgo 620-Local 1, Centro, 42000 Pachuca de Soto, Hgo.",
+        facebook: "https://www.instagram.com/gatonegroclvbmx/",
+        foto: "/img/ruta/gatonegro.jpg"
+      },
+      {
+        nombre: "Café Oso Boca Negra",
+        coords: [20.12668158130643, -98.73208907507319],
+        direccion: "📍 Esq. G. Barrera, Calle Mariano Matamoros 200, Centro, 42000 Pachuca de Soto",
+        facebook: "https://www.facebook.com/osobocanegra/",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/326853512_1291476458384589_4467796630678253275_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=5ZXd5hDUiukQ7kNvwFfuXm8&_nc_oc=AdlD_dTNNfVYbMhY6O6u3vz91Q0UaBk5moOC3db_FBPzgGdEXan0JFl7qOHasmH6yjk&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=SxJ66Gk_u9y4jjRrDLz12w&oh=00_AfUnDpii3bex5PrOeaP_sNcYrpLiZhQ7j3-weM7cvmJWLg&oe=6896D525"
+      },
+      {
+        nombre: "Crak Coffee",
+        coords: [20.121033581310776, -98.73639547507337],
+        direccion: "📍 Av. Fco. I. Madero, Glorieta Revolución esquina, Revolución, 42000 Pachuca de Soto, Hgo.",
+        facebook: "https://www.facebook.com/Crakcoffee/?locale=es_LA",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/515372415_1322545816347803_8343482683546925060_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=YH5Ttg2ynskQ7kNvwFH2H7u&_nc_oc=Adnpgj8-oTRahKOS8gNx_vdB0s2aZFQAskV8SLUy9O5SA_u9iaHdgkZe6hgkDdNzb1o&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=lU7Ws8xGnlsrIDcGPnAbgQ&oh=00_AfXTsGnn-q0WcrRkBIoHJAitjuMG2Djx1svbGB5QQ5PfnA&oe=6896DE04"
+      },
+      {
+        nombre: "R11",
+        coords: [20.1201811776717, -98.7375585462381],
+        direccion: "📍 Av Revolución 404, Revolución, 42060 Pachuca de Soto, Hgo.",
+        facebook: "https://www.facebook.com/R11Cafe/",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/326360708_549549073807221_2994695074604006749_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=PjCOqubnAQQQ7kNvwHT5j-A&_nc_oc=AdnZPHeRoUgxH7g8jOFr2bxvjJDXYaJf6_tThuNkb7P_KBkhYXZi_Rpz41c1J_jWMFE&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=NuXGcodvJaPfhn2lj6vKnQ&oh=00_AfU4sRtkk856HtMVN7Mno2XdE9ZTkuEZCdw-0-e1xfn44Q&oe=6896C700"
+      },
+      {
+        nombre: "Soona' Cafetería",
+        coords: [20.12493805509052, -98.73260680390847],
+        direccion: "📍 Calle Mariano Matamoros 407, Centro, 42000 Pachuca de Soto, Hgo.",
+        facebook: "https://www.facebook.com/people/Soona/61554364096265/?_rdr",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/411490077_122110280954145469_421061838045682453_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=Bk8WVkyrBfgQ7kNvwEv1KJk&_nc_oc=AdniYX5WuSY6ulb0G4JQmIT7wZQY6emGeZbDyBGOZlcswjb70-ZkLQpttzCskHB_PNM&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=HyWuGYQc3GWzn-Baef-AoQ&oh=00_AfVnyDgRqCXBvQTm1tCdNcXyaTTbi0-loROm9kOoej9A5g&oe=6896B9B7"
+      },
+      {
+        nombre: "Amparito's Grand Café",
+        coords: [20.115961030037212, -98.7437266039087],
+        direccion: "📍 Blvd. Colosio 116, Pachuca de Soto, Hgo.",
+        facebook: "https://www.facebook.com/people/Amparitos-Grand-Café/61565578418216/",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/459268720_122101528496519280_2846968025080642367_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=MjSTtcEbmGoQ7kNvwGCceYt&_nc_oc=AdnMZCP6rQDW12z4hZsp-lL6-eDv-Zatf2m30s_oA_YSmywe_KLDKExpkaqkmWIva08&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=y9nE-6bJzzIaXlpXK4hnxw&oh=00_AfWu5clSDWHhKHPU1TWJb6ti-ZlPz5yoGUGqjX7kNKLYGg&oe=6896D8E6"
+      },
+      {
+        nombre: "Radio Expréss Café",
+        coords: [20.116033678743456, -98.74415884623824],
+        direccion: "📍 Av Revolución 1210, Fracc. Colonial, 42064 Pachuca de Soto, Hgo.",
+        facebook: "https://www.facebook.com/RadioExpressRevo/?locale=es_LA",
+        foto: "https://scontent.fmex19-1.fna.fbcdn.net/v/t39.30808-6/326719154_911552063183688_359674514278038041_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=GJruxd4QwgQQ7kNvwH1RYq_&_nc_oc=AdnVjHJq7f3ewANjP3AIh1XbdGbMCuDxJU16z-UrwCdpjFiztS8ZhPCCy-VnLkstsiY&_nc_zt=23&_nc_ht=scontent.fmex19-1.fna&_nc_gid=OHGJNwKiig0zQycLHbWsPw&oh=00_AfUeEOrm2gdSN5JueztuvbAQ-Lt-yNFyWyF31eVYQXHEHA&oe=6896C6B2"
+      }
+    ];
+
+    lugares.forEach(lugar => {
+      new mapboxgl.Marker({ color: "#2D3996", scale: 0.7 })
+        .setLngLat([lugar.coords[1], lugar.coords[0]])
+        .setPopup(
+          new mapboxgl.Popup({ offset: 25 }).setHTML(`
+            <div class="popup-content">
+              <strong>${lugar.nombre}</strong><br>
+              <img src="${lugar.foto}" alt="${lugar.nombre}" style="width:100%; max-width:200px; border-radius:10px; margin-top:5px;"><br>
+              ${lugar.direccion}<br>
+              <a href="${lugar.facebook}" target="_blank">🌐 Ver en Facebook</a>
+            </div>
+          `)
+        )
+        .addTo(map);
+    });
+  </script>
+</body>
+</html>
